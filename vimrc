@@ -1,6 +1,7 @@
 vim9script
 
 filetype plugin indent on
+colo industry
 source $VIMRUNTIME/defaults.vim
 g:mapleader = " " 
 set shiftwidth=2 softtabstop=2 tabstop=2
@@ -12,17 +13,27 @@ set wildoptions=pum
 
 packadd lsp
 packadd vim-commentary
+packadd vim-elixir
 
 call LspAddServer([{
 	\    name: 'golang',
 	\    filetype: ['go', 'gomod'],
-	\    path: '/home/rasmus/.local/share/nvim/mason/bin/gopls',
+	\    path: '/home/rasmus/go/bin/gopls',
 	\    args: ['serve'],
 	\    syncInit: v:true
 	\  }])
 
+call LspAddServer([{
+	\    name: 'elixir',
+	\    filetype: ['elixir', 'eelixir', 'heex', 'surface'],
+	\    path: '/home/rasmus/Downloads/elixir-ls-v0.20.0/language_server.sh',
+	\    args: [],
+	\    syncInit: v:true
+	\  }])
+
 call LspOptionsSet({
-	usePopupInCodeAction: v:true
+	usePopupInCodeAction: v:true,
+	showDiagOnStatusLine: v:true,
 })
 
 noremap <silent> K :execute('LspHover')<CR>
